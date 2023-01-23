@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { transactionsSchema } from "../models/transactions.model.js";
+import { transactionsSchema } from "../models/TransactionsSchema.js";
 
 export function transactionSchemaValidation(req, res, next) {
   const { value, description, type } = req.body;

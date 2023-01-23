@@ -16,13 +16,13 @@ export async function createTransaction(req, res) {
 
 export async function findTransactions(req, res) {
 
+  console.log(res.locals.user)
   const user = res.locals.user;
 
   try {
     const transactions = await transactionsCollection.find({ user: user._id }).toArray();
 
     delete user.password;
-
     res.send({ transactions, user });
   } catch (err) {
     console.log(err);

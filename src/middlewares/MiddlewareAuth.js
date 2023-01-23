@@ -1,14 +1,14 @@
 import { sessionsCollection, usersCollection } from "../database/db.js";
-import { userSchema } from "../models/users.model.js";
+import { userSchema } from "../models/UsersSchema.js";
 import bcrypt from "bcrypt";
 
 export function userSchemaValidation(req, res, next) {
-
   const user = req.body;
+
   const { error } = userSchema.validate(user, { abortEarly: false });
 
   if (error) {
-    const errors = error.details.map((d) => d.message);
+    const errors = error.details.map((detail) => detail.message);
     return res.status(400).send(errors);
   }
 
@@ -18,7 +18,6 @@ export function userSchemaValidation(req, res, next) {
 }
 
 export async function signInBodyValidation(req, res, next) {
-
   const { email, password } = req.body;
 
   try {

@@ -2,16 +2,17 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
-const mongoClient = new MongoClient(process.env.MONGO_URI);
+const mongoClient = new MongoClient(process.env.DATABASE_URL);
+let db;
 
 try {
-  await mongoClient.connect();
-  console.log("Conectado com sucesso");
-} catch (error) {
-  console.log(error);
-}
+  mongoClient.connect();
+  db = mongoClient.db();
+  console.log("Conectado com o banco de dados!");
+} catch (err) {
+ console.log("Erro no mongo.conect", err.message);
+ }
 
-const db = mongoClient.db("MW")
 export const usersCollection = db.collection("users");
 export const sessionsCollection = db.collection("sessions");
 export const transactionsCollection = db.collection("transactions");
